@@ -67,7 +67,7 @@ char	*ft_s_itobase(LL nb, char *base)
 	return (n);
 }
 
-void	ft_init_info(t_info *info)
+void	ft_init_info(t_info *info)    // заполняем поля стркутуры info
 {
 	info->prc = -2;
 	info->fields = -2;
@@ -83,7 +83,7 @@ void	ft_init_info(t_info *info)
 	info->str = ft_strdup("");
 }
 
-void	ft_reset_info(t_info *info)
+void	ft_reset_info(t_info *info)  // очищаем структуру info к начальному виду  кроме поля index и nb_p
 {
 	info->prc = -2;
 	info->fields = -2;

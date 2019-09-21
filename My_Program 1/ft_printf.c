@@ -43,10 +43,10 @@ void	ft_multiplex(t_info *info, va_list *ap)
 
 void	ft_process(const char *format, t_info *info, va_list *ap)
 {
-	if (format[info->index] == '\0')
+	if (format[info->index] == '\0') // если в поле index структуры info пусто, то вернуть ничего
 		return ;
-	free(info->flag);
-	ft_reset_info(info);
+	free(info->flag);    // зафришить поле flag структуры info
+	ft_reset_info(info);  //очищаем структуру info к начальному виду кроме поля index и nb_p
 	ft_parse(format, info, ap);
 	ft_multiplex(info, ap);
 }
@@ -57,7 +57,7 @@ int		inc(char *s, t_info *info)
 	return (0);
 }
 
-void	ft_color(const char *format, t_info *info)
+void	ft_color(const char *format, t_info *info)  // функция управляющая цветным выводом printf
 {
 	if (!ft_strncmp(format + info->index, "{red}", 5))
 		info->str = g_strjoin(info->str, "\033[0;31m", inc("red", info));
@@ -91,19 +91,19 @@ int		ft_printf(const char *format, ...)
 	va_list	ap;
 	t_info	info;
 
-	ft_init_info(&info);
-	va_start(ap, format);
-	while (format[info.index])
+	ft_init_info(&info);  // заполняем поля структуры info
+	va_start(ap, format); // инициализирует переменную ap, чтобы она указывала на первый безымянный аргумент
+	while (format[info.index])  // пока поле index в структуре info не равно \0
 	{
 		if (format[info.index] == '%')
 		{
-			(info.index)++;
+			(info.index)++;    // передвинули на следующий индекс
 			ft_process(format, &info, &ap);
 		}
-		else if (format[info.index] == '{')
+		else if (format[info.index] == '{')  // если поле index в структуре info есть фигурная скобка {, то запускаем функцию по управлениею цветом
 			ft_color(format, &info);
 		else
-			info.str = g_charjoin(info.str, format[(info.index)++]);
+			info.str = g_charjoin(info.str, format[(info.index)++]); // записывает в поле str структуры info если индекс не равен % и не равен { и при это переходим на следующий индекс
 	}
 	va_end(ap);
 	info.nb_p += ft_strlen(info.str);

@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-char	*g_charjoin(char *str, char c)
+char	*g_charjoin(char *str, char c)  // склеивает старую строку и новый символ
 {
 	char	*new;
 	char	s[2];
@@ -38,23 +38,23 @@ char	*g_strjoin(char *str, char *s, int free_str)
 	return (new);
 }
 
-int		char_in(char c, char *str)
+int		char_in(char c, char *str) // ищем следущий индекс после процента в строке 0#-+ или в строке .*1234567890
 {
 	int		i;
 
-	if (str == NULL)
+	if (str == NULL)   // если пусто в str, то возвращаем ноль
 		return (0);
 	i = 0;
-	while (str[i])
+	while (str[i])  // если нашли 0#-+ или .*1234567890 что-то из этих символов то возвращаем 1
 	{
 		if (str[i] == c)
 			return (1);
 		i++;
 	}
-	return (0);
+	return (0);   // иначе если не нашли, то возвращаем 0
 }
 
-int		ft_nb_digit(LL nb)
+int		ft_nb_digit(LL nb) // определение длины числа: 7 - длина 1, 77 - длина 2 и т.д.
 {
 	int len;
 
