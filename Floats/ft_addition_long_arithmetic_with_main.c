@@ -9,14 +9,13 @@ int *ft_make_zero_str(int size)
     i = 0;
     if (size == 0)                                                          // если размер нулевой
         return(0);                                                          // то 0
-    if (!(s = (int *)malloc(sizeof(int) * (size + 1))))
+    if (!(s = (int *)malloc(sizeof(int) * size))
         return (NULL);                                                      // если строка пустая, то NULL
     while(i < size)                                                         // идем по строке и зануляем ее
     {
         s[i] = 0;
         i++;
     }
-    s[i] = '\0';                                                            // последний элемент для \0
     return(s);                                                              // возварщаем int-ую нулевую строку
 }
 
@@ -42,14 +41,14 @@ int    *ft_addition_long_arithmetic(int *x, int *y, int accuracy)
 
 int main()
 {
-    int a[] = {0, 8, 9, 3};                                                 // 1 число
-    int b[] = {0, 6, 4, 8};                                                 // 2 число
+    int a[] = {0, 8, 9, 3, 0, 8, 9, 3};                                     // 1 число
+    int b[] = {0, 6, 4, 8, 0, 8, 9, 3};                                     // 2 число
     int *c;                                                                 // результат сложения
-    int acc = 4;                                                            // точность(количество элементов результата)
+    int acc = 1100;                                                         // точность(количество элементов результата)
     int i = 0;
 
     c = ft_addition_long_arithmetic (a, b, acc);                            // запуск функции сложения длинной арифметики
-    while(i < acc)                                                          // вывод по-символьно полученного результата
+    while(i < 8)                                                            // вывод по-символьно полученного результата
     {
         printf("%d", c[i]);
         i++;
