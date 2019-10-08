@@ -41,8 +41,8 @@ int	*ft_long_math_summ(int *a, int *b, int acc)
 
 int main()
 {
-    int a[] = {7, 2, 5};
-    int b[] = {2, 5, 5};
+    int a[] = {7, 2, 6};
+    int b[] = {3, 4, 1};
     int *c;
     int acc = 3;
     int i = 0;
@@ -50,8 +50,8 @@ int main()
     c = ft_long_math_summ(a, b, acc);
     while(i < acc)
     {
-       printf("%d", c[i]);
-       i++;
+        printf("%d", c[i]);
+        i++;
     }
     return 0;
 }
