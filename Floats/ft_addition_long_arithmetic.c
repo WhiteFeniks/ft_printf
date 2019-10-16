@@ -9,24 +9,23 @@ int *ft_make_zero_str(int size)
     i = 0;
     if (size == 0)
         return(0);
-    if (!(s = (int *)malloc(sizeof(int) * (size + 1))))
+    if (!(s = (int *)malloc(sizeof(int) * size)))
         return (NULL);
     while(i < size)
     {
         s[i] = 0;
         i++;
     }
-    s[i] = '\0';
     return(s);
 }
 
-int    *ft_addition_long_arithmetic(int *x, int *y, int accuracy)
+int    *ft_addition_long_arithmetic(int *x, int *y)
 {
     int *result;
     int i;
 
-    i = accuracy - 1;
-    result = ft_make_zero_str(accuracy);
+    i = 1100 - 1;
+    result = ft_make_zero_str(1100);
     while (i >= 0)
     {
         result[i] = result[i] + x[i] + y[i];
