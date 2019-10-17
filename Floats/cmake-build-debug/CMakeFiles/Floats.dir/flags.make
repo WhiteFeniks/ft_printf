@@ -6,5 +6,5 @@ C_FLAGS = -g   -std=gnu11
 
 C_DEFINES = 
 
-C_INCLUDES = -I"/Users/umoff/git_printf/Floats copy/." 
+C_INCLUDES = -I/Users/umoff/git_printf/Floats/. 
 
