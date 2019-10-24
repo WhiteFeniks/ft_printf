@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+
 int *ft_make_zero_str(int size)
 {
     int *s;                                                                 // создаем строку
@@ -17,6 +18,35 @@ int *ft_make_zero_str(int size)
     }
     s[i] = '\0';                                                            // последний элемент для \0
     return(s);                                                              // возварщаем int-ую нулевую строку
+}
+
+int ft_shift_one(int len)
+{
+    int result;
+
+    if (len == 0)
+        return (1);
+    result = 10;
+    while (--len > 0)
+        result = result * 10;
+    return (result);
+}
+
+int ft_make_number(int *my_array)
+{
+    int i;
+    int num;
+
+    i = 0;
+    num = 0;
+    while (my_array[i] == 0)
+        i++;
+    while (i < 1100)
+    {
+        num = num + my_array[i] * ft_shift_one(1100 - i - 1);
+        i++;
+    }
+    return (num);
 }
 
 int	ft_array_comparison(int *my_array)
@@ -59,64 +89,30 @@ int ft_abs(int digital)
     return (digital);
 }
 
-int ft_shift_one(int len)
-{
-    int result;
-
-    if (len == 0)
-        return (1);
-    result = 10;
-    while (--len > 0)
-        result = result * 10;
-    return (result);
-}
-
 int    *ft_division_long_arithmetic(int *x, int *y)
 {
-    int *result;                                                            // результат сложения
-    int *temp_1;
-    int *temp_2;
-    int *temp_3;
+    int number_1;
+    int number_2;
+    int *result;
     int i;
-    int j;
-    int count;
     int len;
-    int len_x;
-    int len_y;
 
-    i = 0;                                                                  // начинаем с элемента = длина результата - 1 (последний символ для \0)
-    j = 0;
-    result = ft_make_zero_str(1100);                                   // создание нулевой int-овой строки
-    len_x = ft_array_comparison(x);
-    len_y = ft_array_comparison(y);
-    len = ft_abs(len_x - len_y);
-    if (len_x < len_y)                                                     //Здесь выбрается наименьшее число и выровнивается с большим
+    number_1 = 0;
+    number_2 = 0;
+    i = 0;
+    result = ft_make_zero_str(1100);
+    len = (ft_array_comparison(y) - ft_array_comparison(x));
+    x = ft_shift_elements(x, len);
+    number_1 = ft_make_number(x);
+    number_2 = ft_make_number(y);
+    while (number_1 % number_2 != 0)
     {
-        temp_1 = ft_shift_elements(x, len);
-        temp_2 = y;
-    }
-    else
-    {
-        temp_1 = x;
-        temp_2 = ft_shift_elements(y,len);
-    }
-    while (temp_1[i] == 0)
-        i++;
-    count = i;
-    while (i < 1100)
-    {
-        result[0] = result[0] + temp_1[i] * ft_shift_one(1100 - i - 1);
-        result[1] = result[1] + temp_2[i] * ft_shift_one(1100 - i - 1);
+        if number_1 по длине < number_2 то надо выровнять эти числа
+        result[i] = number_1 / number_2;
+        number_1 = number_1 % number_2;
         i++;
     }
-    while (--i >= count)
-    {
-        result[i] = result[0] / result[1];
-        result[i - 1] = result[0] % result[1];
-    }
-
     printf("good");
-    return(result);                                                         // выводим результат сложения
 }
 
 int main()
@@ -124,11 +120,10 @@ int main()
     int *a;
     int *b;
     int *c;                                                                 // результат вычитания
-    int acc;
+
     int i;
 
     i = 0;
-    acc = 1100;
     a = ft_make_zero_str(1100);
     b = ft_make_zero_str(1100);
     a[1099] = 4;                                                            // 1 число из него вычитают
