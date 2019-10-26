@@ -3,21 +3,21 @@
 
 int *ft_make_zero_str(int size)
 {
-    int *s;                                                                 // создаем строку
+    int *s;
     int i;
 
     i = 0;
-    if (size == 0)                                                          // если размер нулевой
-        return(0);                                                          // то 0
+    if (size == 0)
+        return(0);
     if (!(s = (int *)malloc(sizeof(int) * (size + 1))))
-        return (NULL);                                                      // если строка пустая, то NULL
-    while(i < size)                                                         // идем по строке и зануляем ее
+        return (NULL);
+    while(i < size)
     {
         s[i] = 0;
         i++;
     }
-    s[i] = '\0';                                                            // последний элемент для \0
-    return(s);                                                              // возварщаем int-ую нулевую строку
+    s[i] = '\0';
+    return(s);
 }
 
 int ft_shift_one(int len)
@@ -49,7 +49,7 @@ int ft_make_number(int *my_array)
     return (num);
 }
 
-int	ft_array_comparison(int *my_array)
+int	ft_array_length(int *my_array)
 {
     int i;
     int count;
@@ -76,7 +76,8 @@ int *ft_shift_elements_left(int *my_array, int len)
     while (i < 1100)
     {
         my_array[i - len] = my_array[i];
-        my_array[i] = 0;
+        if (len != 0)
+            my_array[i] = 0;
         i++;
     }
     return(my_array);
@@ -92,30 +93,11 @@ int *ft_shift_elements_right(int *my_array, int len)
     while (i >= 0)
     {
         my_array[i + len] = my_array[i];
-        my_array[i] = 0;
+        if (len != 0)
+            my_array[i] = 0;
         i--;
     }
     return(my_array);
-}
-
-int ft_abs(int digital)
-{
-    if (digital < 0)
-        digital = (-1) * digital;
-    return (digital);
-}
-
-int ft_len_int(int digital)
-{
-    int count;
-
-    count = 0;
-    while(digital > 0)
-    {
-        digital = digital / 10;
-        count++;
-    }
-    return (count);
 }
 
 int ft_align_digital(int digital)
@@ -136,7 +118,7 @@ int    *ft_division_long_arithmetic(int *x, int *y)
     number_2 = 0;
     i = 0;
     result = ft_make_zero_str(1100);
-    len = (ft_array_comparison(y) - ft_array_comparison(x));
+    len = (ft_array_length(y) - ft_array_length(x));
     x = ft_shift_elements_left(x, len);
     number_1 = ft_make_number(x);
     number_2 = ft_make_number(y);
@@ -150,42 +132,4 @@ int    *ft_division_long_arithmetic(int *x, int *y)
     }
     ft_shift_elements_right(result, len);
     return (result);
-}
-
-int main()
-{
-    int *a;
-    int *b;
-    int *c;                                                                 // результат вычитания
-
-    int i;
-
-    i = 0;
-    a = ft_make_zero_str(1100);
-    b = ft_make_zero_str(1100);
-    a[1099] = 1;                                                            // 1 число из него вычитают
-    a[1098] = 0;
-    a[1097] = 0;
-    a[1096] = 0;
-    a[1095] = 0;
-
-
-    b[1099] = 8;                                                            // 2 число (зеркально)
-    b[1098] = 2;
-    b[1097] = 1;
-    b[1096] = 0;
-    b[1095] = 0;
-
-    c = ft_division_long_arithmetic (a, b);                               // запуск функции вычитания длинной арифметики
-
-    while(c[i] == 0 && i < 1100)
-        i++;
-    if (i == 1100)
-        printf("%d", 0);
-    while(i < 1100)                                                         // вывод по-символьно полученного результата
-    {
-        printf("%d", c[i]);
-        i++;
-    }
-    return 0;
 }
